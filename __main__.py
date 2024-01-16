@@ -38,11 +38,11 @@ def main():
         
         # Get total (or error message)
         total = scraper.search(
-            from_state=row[1],
-            from_city=row[2],
-            to_state=row[3],
-            to_city=row[4],
-            vehicle=row[5]
+            from_state=row[1].strip(),
+            from_city=row[2].strip(),
+            to_state=row[3].strip(),
+            to_city=row[4].strip(),
+            vehicle=row[5].strip()
         )
         
         # Save total in excel
