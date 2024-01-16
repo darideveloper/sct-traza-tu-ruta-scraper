@@ -1,6 +1,6 @@
 from time import sleep
-from web_scraping import WebScraping
-from logs import logger
+from libs.web_scraping import WebScraping
+from libs.logs import logger
 
 
 class Scraper(WebScraping):
@@ -19,7 +19,7 @@ class Scraper(WebScraping):
         self.refresh_selenium()
 
     def search(self, from_state: str, from_city: str, to_state: str, to_city: str,
-               vehicle: str) -> tuple:
+               vehicle: str) -> str:
         """ Search for a route and get total price
         
         Args:
@@ -30,9 +30,7 @@ class Scraper(WebScraping):
             vehicle (str): Vehicle type
             
         Returns:
-            tuple:
-                str: value (tottal price or error message)
-                bool: True if success, False if error
+            str: value (total price or error message)
         """
         
         message = f"Searching for {vehicle} from {from_state}" \
@@ -83,7 +81,7 @@ class Scraper(WebScraping):
             except Exception:
                 error = f'Error setting "{value}" in "{name}"'
                 logger.error(error)
-                return error, False
+                return error
             else:
                 sleep(1)
             
@@ -96,8 +94,9 @@ class Scraper(WebScraping):
         if not total:
             error = "Error getting total"
             logger.error(error)
-            return error, False
-        return total, True
+            return error
+        
+        return total
         
         
 if __name__ == "__main__":
