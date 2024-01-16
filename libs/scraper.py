@@ -1,5 +1,7 @@
 from time import sleep
 from web_scraping import WebScraping
+from logs import logger
+
 
 class Scraper(WebScraping):
     """ Get the total price for mexico transpotation """
@@ -33,11 +35,10 @@ class Scraper(WebScraping):
                 bool: True if success, False if error
         """
         
-        print(
-            f"Searching for {vehicle} from {from_state}",
+        message = f"Searching for {vehicle} from {from_state}" \
             f"{from_city} to {to_state} {to_city}..."
-        )
-        
+        logger.info(message)
+               
         self.__load_page__()
         
         # css selecrors
@@ -80,7 +81,7 @@ class Scraper(WebScraping):
                 self.select_drop_down_text(selector, value)
             except Exception:
                 error = f'Error setting "{value}" in "{name}"'
-                print(error)
+                logger.error(error)
                 return error, False
             else:
                 sleep(1)
