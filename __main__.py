@@ -36,13 +36,31 @@ def main():
     # Scraper each route from excel
     for row in excel_data:
         
+        # Get row data
+        from_state = row[1].strip()
+        from_city = row[2].strip()
+        to_state = row[3].strip()
+        to_city = row[4].strip()
+        vehicle = row[5].strip()
+        total = row[6]
+        
+        # Log message
+        message = f"Searching for {vehicle} from {from_state}" \
+            f" {from_city} to {to_state} {to_city}..."
+        logger.info(message)
+        
+        # Skip if total already set
+        if total:
+            logger.info(f"\tTotal already set: {total}")
+            continue
+        
         # Get total (or error message)
         total = scraper.search(
-            from_state=row[1].strip(),
-            from_city=row[2].strip(),
-            to_state=row[3].strip(),
-            to_city=row[4].strip(),
-            vehicle=row[5].strip()
+            from_state,
+            from_city,
+            to_state,
+            to_city,
+            vehicle
         )
         
         # Save total in excel

@@ -32,10 +32,6 @@ class Scraper(WebScraping):
         Returns:
             str: value (total price or error message)
         """
-        
-        message = f"Searching for {vehicle} from {from_state}" \
-            f" {from_city} to {to_state} {to_city}..."
-        logger.info(message)
                
         self.__load_page__()
         
