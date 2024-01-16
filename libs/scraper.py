@@ -79,7 +79,7 @@ class Scraper(WebScraping):
             try:
                 self.select_drop_down_text(selector, value)
             except Exception:
-                error = f'Error setting "{value}" in "{name}"'
+                error = f'\tError setting "{value}" in "{name}"'
                 logger.error(error)
                 return error
             else:
@@ -92,17 +92,20 @@ class Scraper(WebScraping):
         # Get total
         total = self.get_text(selectors["total"])
         if not total:
-            error = "Error getting total"
+            error = "\tError getting total"
             logger.error(error)
             return error
         
+        logger.info(f"\tTotal: {total}")
         return total
         
         
 if __name__ == "__main__":
     scraper = Scraper()
-    message, status = scraper.search("Jalisco", "Guadalajara", "Michoacán", "Morelia", "Automóvil")
-    message, status = scraper.search("Jalisco", "Guadalajara", "Sonora", "Hermosillo", "Pick Ups")
-    message, status = scraper.search("Jalisco", "Guadalajara", "Michoacán", "Morelia", "Automovil")
-    message, status = scraper.search("Jalisco", "Guadalajara", "Michoacán", "Morelia", "Camión 5 ejes")
-        
+    message = scraper.search(
+        "Jalisco",
+        "Guadalajara",
+        "Michoacán",
+        "Morelia",
+        "Automóvil"
+    )
