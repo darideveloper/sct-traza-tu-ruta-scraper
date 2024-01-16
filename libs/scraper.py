@@ -43,7 +43,8 @@ class Scraper(WebScraping):
         
         # css selecrors
         selectors = {
-            "btn": 'input[name="cmdEnviar"]'
+            "btn": 'input[name="cmdEnviar"]',
+            "total": 'tr:nth-last-child(5) td:last-child'
         }
         
         # Class attribute for drop down elements and values to set
@@ -88,12 +89,21 @@ class Scraper(WebScraping):
             
         # Send form
         self.click_js(selectors["btn"])
+        self.refresh_selenium()
+        
+        # Get total
+        total = self.get_text(selectors["total"])
+        if not total:
+            error = "Error getting total"
+            logger.error(error)
+            return error, False
+        return total, True
         
         
 if __name__ == "__main__":
     scraper = Scraper()
-    scraper.search("Jalisco", "Guadalajara", "Jalisco", "Zapopan", "Automóvil")
-    scraper.search("Jalisco", "Guadalajara", "Sonora", "Hermosillo", "Pick Ups")
-    scraper.search("Jalisco", "Guadalajara", "Michoacan", "Morelia", "Automovil")
-    scraper.search("Jalisco", "Guadalajara", "Michoacan", "Morelia", "Camión 5 ejes")
+    message, status = scraper.search("Jalisco", "Guadalajara", "Michoacán", "Morelia", "Automóvil")
+    message, status = scraper.search("Jalisco", "Guadalajara", "Sonora", "Hermosillo", "Pick Ups")
+    message, status = scraper.search("Jalisco", "Guadalajara", "Michoacán", "Morelia", "Automovil")
+    message, status = scraper.search("Jalisco", "Guadalajara", "Michoacán", "Morelia", "Camión 5 ejes")
         
