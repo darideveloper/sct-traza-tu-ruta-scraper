@@ -7,7 +7,7 @@ from libs.xlsx import SpreadsheetManager
 def main():
     """ Get routes total price, using and saving data from in excel """
     
-    input("Close the excel. Press enter to continue")
+    input("\n>>> Close the excel. Press enter to continue")
     
     # Initialize scraper
     scraper = Scraper()
